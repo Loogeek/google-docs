@@ -1,16 +1,54 @@
 "use client";
 
-import { useEditor } from "@tiptap/react";
-import { EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
+
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
+
+import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-extension-resize-image";
+
+import Underline from "@tiptap/extension-underline";
+import FontFamily from "@tiptap/extension-font-family";
+import TextStyle from "@tiptap/extension-text-style";
+
+import { Color } from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+
+import TextAlign from "@tiptap/extension-text-align";
+
+import Link from "@tiptap/extension-link";
 
 interface EditorProps {
   initialContent?: string | undefined;
 }
-console.log(11111);
+
 export default function Editor({ initialContent }: EditorProps) {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Table,
+      TableCell,
+      TableHeader,
+      TableRow,
+      TaskList,
+      TaskItem,
+      Image,
+      ImageResize,
+      Underline,
+      FontFamily,
+      TextStyle,
+      Color,
+      Highlight,
+      TextAlign,
+      Link,
+    ],
     editorProps: {
       attributes: {
         style: "padding-left: 56px; padding-right: 56px",
@@ -18,7 +56,22 @@ export default function Editor({ initialContent }: EditorProps) {
           "focus:outline-none print:boder-0 border bg-white border-editor-border flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
-    content: "<p>Hello World</p>",
+    content: `
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>
+      `,
   });
 
   return (
