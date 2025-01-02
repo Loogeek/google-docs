@@ -25,12 +25,43 @@ import TextAlign from "@tiptap/extension-text-align";
 
 import Link from "@tiptap/extension-link";
 
+import { useEditorStore } from "@/store/use-editor-store";
+
+import { FontSizeExtensions } from "@/extensions/font-size";
+import { LineHeightExtension } from "@/extensions/line-height";
+
 interface EditorProps {
   initialContent?: string | undefined;
 }
 
-export default function Editor({ initialContent }: EditorProps) {
+export function Editor({ initialContent }: EditorProps) {
+  const { setEditor } = useEditorStore();
+
   const editor = useEditor({
+    onCreate: ({ editor }) => {
+      setEditor(editor);
+    },
+    onDestroy: () => {
+      setEditor(null);
+    },
+    onUpdate({ editor }) {
+      setEditor(editor);
+    },
+    onSelectionUpdate({ editor }) {
+      setEditor(editor);
+    },
+    onTransaction({ editor }) {
+      setEditor(editor);
+    },
+    onFocus({ editor }) {
+      setEditor(editor);
+    },
+    onBlur({ editor }) {
+      setEditor(editor);
+    },
+    onContentError({ editor }) {
+      setEditor(editor);
+    },
     extensions: [
       StarterKit,
       Table,
@@ -38,7 +69,6 @@ export default function Editor({ initialContent }: EditorProps) {
       TableHeader,
       TableRow,
       TaskList,
-      TaskItem,
       Image,
       ImageResize,
       Underline,
@@ -48,6 +78,23 @@ export default function Editor({ initialContent }: EditorProps) {
       Highlight,
       TextAlign,
       Link,
+      LineHeightExtension.configure({
+        types: ["heading", "paragraph"],
+        defaultLineHeight: "1.5",
+      }),
+      FontSizeExtensions,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      Highlight.configure({
+        multicolor: true,
+      }),
+      TaskItem.configure({ nested: true }),
     ],
     editorProps: {
       attributes: {

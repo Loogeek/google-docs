@@ -1,4 +1,4 @@
-import Editor from "../editor";
+import { Document } from "./document";
 
 interface DocumentIdPageProps {
   params: Promise<{
@@ -8,8 +8,8 @@ interface DocumentIdPageProps {
 
 const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
   const { documentId } = await params;
-  return <Editor />;
-  // return <div>DocumentIdPage: {documentId}</div>;
+  console.log(documentId);
+  return <Document />;
 };
 
 export default DocumentIdPage;
